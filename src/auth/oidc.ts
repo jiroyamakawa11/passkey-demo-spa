@@ -57,6 +57,8 @@ export const getOidcConfig = (): OidcConfig => {
   };
 };
 
+// Cognito の認可エンドポイント仕様（参照ドキュメント）
+// https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html
 export const buildAuthorizeUrl = async (options?: { prompt?: string }) => {
   const config = getOidcConfig();
   const { verifier, challenge } = await generatePkce();
@@ -107,6 +109,8 @@ export const handleCallback = async (code: string, stateFromCallback: string) =>
   return tokens;
 };
 
+// Cognito のログアウトエンドポイント仕様（参照ドキュメント）
+// https://docs.aws.amazon.com/cognito/latest/developerguide/logout-endpoint.html
 export const buildLogoutUrl = () => {
   const config = getOidcConfig();
   const url = new URL(`https://${config.domain}/logout`);
@@ -116,6 +120,8 @@ export const buildLogoutUrl = () => {
   return url.toString();
 };
 
+// Cognito の managed login エンドポイント概要（Passkey の add/remove を参照）
+// https://docs.aws.amazon.com/cognito/latest/developerguide/managed-login-endpoints.html
 export const buildPasskeyUrl = (action: "add" | "remove") => {
   const config = getOidcConfig();
   const url = new URL(`https://${config.domain}/passkeys/${action}`);
