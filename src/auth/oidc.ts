@@ -57,7 +57,7 @@ export const getOidcConfig = (): OidcConfig => {
   };
 };
 
-export const buildAuthorizeUrl = async (options?: { screenHint?: string; prompt?: string }) => {
+export const buildAuthorizeUrl = async (options?: { prompt?: string }) => {
   const config = getOidcConfig();
   const { verifier, challenge } = await generatePkce();
   const state = generateNonce(16);
@@ -75,9 +75,6 @@ export const buildAuthorizeUrl = async (options?: { screenHint?: string; prompt?
   url.searchParams.set("code_challenge", challenge);
   url.searchParams.set("lang", "ja");
 
-  if (options?.screenHint) {
-    url.searchParams.set("screen_hint", options.screenHint);
-  }
   if (options?.prompt) {
     url.searchParams.set("prompt", options.prompt);
   }

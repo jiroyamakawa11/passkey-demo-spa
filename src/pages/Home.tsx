@@ -9,9 +9,9 @@ export const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const tokens = loadTokens();
 
-  const handleLogin = async (screenHint?: string) => {
+  const handleLogin = async () => {
     setIsLoading(true);
-    const url = await buildAuthorizeUrl({ screenHint });
+    const url = await buildAuthorizeUrl();
     window.location.assign(url);
   };
 
@@ -49,11 +49,8 @@ export const Home = () => {
             <>
               <p>未ログインです。managed login に遷移してサインアップ / ログインしてください。</p>
               <div className="inline">
-                <button type="button" onClick={() => handleLogin("signup")} disabled={isLoading}>
+                <button type="button" onClick={handleLogin} disabled={isLoading}>
                   サインアップ / ログイン
-                </button>
-                <button type="button" className="secondary" onClick={() => handleLogin()} disabled={isLoading}>
-                  ログインのみ
                 </button>
               </div>
             </>
